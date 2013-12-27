@@ -44,10 +44,25 @@ when "ubuntu"
 
     action :add
   end
+when "suse"
+  include_recipe "zypper"
+
+  zypper_repository node["redis"]["zypper"]["alias"] do
+    uri node["redis"]["zypper"]["repo"]
+    key node["redis"]["zypper"]["key"]
+    title node["redis"]["zypper"]["title"]
+
+    action :add
+  end
 end
 
 node["mongodb"]["server"]["packages"].each do |name|
   package name do
     action :install
   end
+end
+
+service "mongodb" do
+  service_name node["mongodb"]["server"]["service_name"]
+  action [:enable, :start]
 end

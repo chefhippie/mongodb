@@ -17,19 +17,16 @@
 # limitations under the License.
 #
 
-case node["platform_family"]
-when "debian"
-  default["mongodb"]["server"]["packages"] = %w(
+default["mongodb"]["server"]["packages"] = value_for_platform_family(
+  "debian" => %w(
     mongodb-10gen
-  )
-when "ubuntu"
-  default["mongodb"]["server"]["packages"] = %w(
+  ),
+  "ubuntu" => %w(
     mongodb-10gen
-  )
-when "suse"
-  default["mongodb"]["server"]["packages"] = %w(
+  ),
+  "suse" => %w(
     mongodb
   )
-end
+)
 
 default["mongodb"]["server"]["service_name"] = "mongodb"

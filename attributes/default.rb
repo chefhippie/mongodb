@@ -32,4 +32,9 @@ when "ubuntu"
   default["mongodb"]["apt"]["keyserver"] = "keyserver.ubuntu.com"
   default["mongodb"]["apt"]["key"] = "7F0CEB10"
   default["mongodb"]["apt"]["source"] = false
+when "suse"
+  default["mongodb"]["zypper"]["alias"] = "server-database"
+  default["mongodb"]["zypper"]["title"] = "Server Database"
+  default["mongodb"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/database/openSUSE_#{node["platform_version"] == "12.1" ? "12.3" : node["platform_version"]}/"
+  default["mongodb"]["zypper"]["key"] = "#{node["mongodb"]["zypper"]["repo"]}repodata/repomd.xml.key"
 end
