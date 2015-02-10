@@ -31,19 +31,6 @@ when "debian"
 
     action :add
   end
-when "ubuntu"
-  include_recipe "apt"
-
-  apt_repository "mongodb" do
-    uri node["mongodb"]["apt"]["uri"]
-    distribution node["mongodb"]["apt"]["distribution"]
-    components node["mongodb"]["apt"]["components"]
-    keyserver node["mongodb"]["apt"]["keyserver"]
-    key node["mongodb"]["apt"]["key"]
-    source node["mongodb"]["apt"]["source"]
-
-    action :add
-  end
 when "suse"
   include_recipe "zypper"
 

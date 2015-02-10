@@ -19,19 +19,22 @@
 
 case node["platform_family"]
 when "debian"
-  default["mongodb"]["apt"]["uri"] = "http://downloads-distro.mongodb.org/repo/debian-sysvinit"
-  default["mongodb"]["apt"]["distribution"] = "dist"
-  default["mongodb"]["apt"]["components"] = %w(10gen)
-  default["mongodb"]["apt"]["keyserver"] = "keyserver.ubuntu.com"
-  default["mongodb"]["apt"]["key"] = "7F0CEB10"
-  default["mongodb"]["apt"]["source"] = false
-when "ubuntu"
-  default["mongodb"]["apt"]["uri"] = "http://downloads-distro.mongodb.org/repo/ubuntu-upstart"
-  default["mongodb"]["apt"]["distribution"] = "dist"
-  default["mongodb"]["apt"]["components"] = %w(10gen)
-  default["mongodb"]["apt"]["keyserver"] = "keyserver.ubuntu.com"
-  default["mongodb"]["apt"]["key"] = "7F0CEB10"
-  default["mongodb"]["apt"]["source"] = false
+  case node["platform"]
+  when "debian"
+    default["mongodb"]["apt"]["uri"] = "http://downloads-distro.mongodb.org/repo/debian-sysvinit"
+    default["mongodb"]["apt"]["distribution"] = "dist"
+    default["mongodb"]["apt"]["components"] = %w(10gen)
+    default["mongodb"]["apt"]["keyserver"] = "keyserver.ubuntu.com"
+    default["mongodb"]["apt"]["key"] = "7F0CEB10"
+    default["mongodb"]["apt"]["source"] = false
+  when "ubuntu"
+    default["mongodb"]["apt"]["uri"] = "http://downloads-distro.mongodb.org/repo/ubuntu-upstart"
+    default["mongodb"]["apt"]["distribution"] = "dist"
+    default["mongodb"]["apt"]["components"] = %w(10gen)
+    default["mongodb"]["apt"]["keyserver"] = "keyserver.ubuntu.com"
+    default["mongodb"]["apt"]["key"] = "7F0CEB10"
+    default["mongodb"]["apt"]["source"] = false
+  end
 when "suse"
   default["mongodb"]["zypper"]["alias"] = "server-database"
   default["mongodb"]["zypper"]["title"] = "Server Database"

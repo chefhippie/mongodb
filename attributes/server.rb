@@ -21,9 +21,6 @@ default["mongodb"]["server"]["packages"] = value_for_platform_family(
   "debian" => %w(
     mongodb-10gen
   ),
-  "ubuntu" => %w(
-    mongodb-10gen
-  ),
   "suse" => %w(
     mongodb
   )
