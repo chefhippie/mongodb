@@ -29,7 +29,7 @@ when "debian"
     key node["mongodb"]["apt"]["key"]
     source node["mongodb"]["apt"]["source"]
 
-    action :add
+    action [:add, :refresh]
   end
 when "suse"
   include_recipe "zypper"
@@ -39,7 +39,7 @@ when "suse"
     key node["redis"]["zypper"]["key"]
     title node["redis"]["zypper"]["title"]
 
-    action :add
+    action [:add, :refresh]
   end
 end
 
