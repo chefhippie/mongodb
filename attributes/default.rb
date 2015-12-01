@@ -19,6 +19,23 @@
 
 case node["platform_family"]
 when "debian"
+when "suse"
+  repo = case node["platform_version"]
+  when /\A13\.\d+\z/
+    "openSUSE_#{node["platform_version"]}"
+  when /\A42\.\d+\z/
+    "openSUSE_Leap_#{node["platform_version"]}"
+  when /\A\d{8}\z/
+    "openSUSE_Tumbleweed"
+  else
+    raise "Unsupported SUSE version"
+  end
+
+  default["mongodb"]["zypper"]["alias"] = "server-database"
+  default["mongodb"]["zypper"]["title"] = "Server Database"
+  default["mongodb"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/database/#{repo}/"
+  default["mongodb"]["zypper"]["key"] = "#{node["mongodb"]["zypper"]["repo"]}repodata/repomd.xml.key"
+when "debian"
   case node["platform"]
   when "debian"
     default["mongodb"]["apt"]["uri"] = "http://downloads-distro.mongodb.org/repo/debian-sysvinit"
@@ -35,9 +52,4 @@ when "debian"
     default["mongodb"]["apt"]["key"] = "7F0CEB10"
     default["mongodb"]["apt"]["source"] = false
   end
-when "suse"
-  default["mongodb"]["zypper"]["alias"] = "server-database"
-  default["mongodb"]["zypper"]["title"] = "Server Database"
-  default["mongodb"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/database/openSUSE_#{node["platform_version"]}/"
-  default["mongodb"]["zypper"]["key"] = "#{node["mongodb"]["zypper"]["repo"]}repodata/repomd.xml.key"
 end
